@@ -38,8 +38,8 @@ unsigned long lastPublish;
 
 void sendReading() {
   int reading = analogRead(A0);
-  char readingStr [5];
-  sprintf (readingStr, "%i", reading);
+  char readingStr [20];
+  sprintf( readingStr, "{\"value\": %i}", reading);
   Serial.print("Publishing: ");
   Serial.println(readingStr);
   pubSubClient.publish(PLANT_TOPIC, readingStr);
@@ -49,7 +49,7 @@ void sendReading() {
 void loop() {
   pubSubCheckConnect();
 
-  if (millis() - lastPublish > 10000) {
+  if (millis() - lastPublish > 10000) { // 20 minutes
     sendReading();
   }
 }
