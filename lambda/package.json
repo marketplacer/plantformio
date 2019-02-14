@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "tsc",
+    "lint": "tslint --project ."
   },
   "keywords": [],
   "author": "",
@@ -12,5 +14,13 @@
   "dependencies": {
     "axios": "^0.18.0",
     "datadog-metrics": "^0.8.1"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/datadog-metrics": "^0.6.0",
+    "@types/node": "^11.9.3",
+    "tslint": "^5.12.1",
+    "tslint-config-standard": "^8.0.1",
+    "typescript": "^3.3.3"
   }
 }
