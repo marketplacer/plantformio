@@ -1,3 +1,4 @@
+.envrc
+.serverless/
 dist/
 node_modules/
-.envrc
