@@ -8,11 +8,30 @@ extern "C" {
 WiFiClientSecure wiFiClient;
 PubSubClient pubSubClient(MQTT_SERVER, 8883, wiFiClient);
 
-void connectWiFi () {
+bool connectWiFi () {
+  WiFi.disconnect(true);
+  delay(250);
   Serial.print("Connecting to "); Serial.print(SSID);
   WiFi.begin(SSID, WIFI_PASS);
-  WiFi.waitForConnectResult();
-  Serial.print(", WiFi connected, IP address: "); Serial.println(WiFi.localIP());
+
+  int connectionWait = 0;
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    connectionWait++;
+    Serial.print(".");
+
+    if (connectionWait == 20) {
+      break;
+    }
+  }
+
+  if (WiFi.status() != WL_CONNECTED) {
+    return false;
+  } else {
+    Serial.print(", WiFi connected, IP address: "); Serial.println(WiFi.localIP());
+    return true;
+  }
 }
 
 void setupCertificates () {
@@ -30,8 +49,17 @@ void setup() {
   Serial.begin(115200);
   delay(250);
 
-  connectWiFi();
+  bool wiFiConnected = false;
+  while (!wiFiConnected) {
+    wiFiConnected = connectWiFi();
+  }
+
   setupCertificates();
+  pubSubCheckConnect();
+  delay(250);
+  sendReading();
+  delay(500);
+  ESP.deepSleep(1200 * 1000000); // Sleep every 20 minutes
 }
 
 unsigned long lastPublish;
@@ -44,14 +72,6 @@ void sendReading() {
   Serial.println(readingStr);
   pubSubClient.publish(PLANT_TOPIC, readingStr);
   lastPublish = millis();
-}
-
-void loop() {
-  pubSubCheckConnect();
-
-  if (millis() - lastPublish > 10000) { // 20 minutes
-    sendReading();
-  }
 }
 
 void pubSubCheckConnect() {
@@ -80,4 +100,7 @@ int b64decode(String b64Text, uint8_t* output) {
   base64_init_decodestate(&s);
   int cnt = base64_decode_block(b64Text.c_str(), b64Text.length(), (char*)output, &s);
   return cnt;
+}
+
+void loop() {
 }
