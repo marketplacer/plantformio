@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "tsc",
-    "lint": "tslint --project ."
+    "compile": "tsc --project lambda",
+    "lint": "tslint --project lambda"
   },
   "keywords": [],
   "author": "",

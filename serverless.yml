@@ -18,12 +18,15 @@ provider:
   runtime: nodejs8.10
 
 package:
- include:
-   - dist/**
+  include:
+    - dist/**
+  exclude:
+    - module/**
+    - "**/*.ts"
 
 functions:
   moistureReading:
-    handler: dist/index.handler
+    handler: lambda/dist/index.handler
     environment:
       WEBHOOK_URL: ${env:WEBHOOK_URL}
       DATADOG_API_KEY: ${env:DATADOG_API_KEY}

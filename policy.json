@@ -1,0 +1,28 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "iam:GetRole",
+                "cloudwatch:GetDashboard",
+                "cloudwatch:GetMetricData",
+                "s3:*",
+                "iot:*",
+                "logs:*",
+                "cloudformation:*",
+                "cloudwatch:GetMetricStatistics",
+                "cloudwatch:ListMetrics",
+                "iam:*",
+                "cloudwatch:DescribeAlarmHistory",
+                "cloudwatch:DescribeAlarmsForMetric",
+                "cloudwatch:ListDashboards",
+                "cloudwatch:DescribeAlarms",
+                "lambda:*",
+                "cloudwatch:GetMetricWidgetImage"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
