@@ -4,6 +4,5 @@ before_install:
 script:
   - "yarn run lint"
   - "yarn run compile"
-  - "echo $TRAVIS_BRANCH"
-  - if [ TRAVIS_BRANCH == "master" ]; then yarn deploy; fi
+  - if [ TRAVIS_BRANCH == "master" ]; then yarn run deploy; fi
 cache: yarn

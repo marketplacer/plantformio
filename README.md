@@ -16,7 +16,7 @@
 
 Everything is configured to just work™ with AWS. A (slightly) restricted role can be used with the policy defined in `policy.json`.
 
-To build your code locally, you'll need all the dependencies (`yarn install`) and then run `yarn compile`. This is exactly what gets run in CI, except we also run `yarn deploy` for master builds to get it on to AWS.
+To build your code locally, you'll need all the dependencies (`yarn install`) and then run `yarn run compile`. This is exactly what gets run in CI, except we also run `yarn run deploy` for master builds to get it on to AWS.
 
 ## The Hardware Side
 
