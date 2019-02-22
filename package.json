@@ -13,10 +13,12 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.408.0",
     "axios": "^0.18.0",
     "datadog-metrics": "^0.8.1"
   },
   "devDependencies": {
+    "@types/aws-sdk": "^2.7.0",
     "@types/axios": "^0.14.0",
     "@types/datadog-metrics": "^0.6.0",
     "@types/node": "^11.9.3",
