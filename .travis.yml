@@ -4,5 +4,5 @@ before_install:
 script:
   - "yarn run lint"
   - "yarn run compile"
-  - if [ TRAVIS_BRANCH == "master" ]; then serverless deploy; fi
+  - if [ TRAVIS_BRANCH == "master" ]; then yarn deploy; fi
 cache: yarn
