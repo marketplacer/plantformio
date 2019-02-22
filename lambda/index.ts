@@ -28,4 +28,10 @@ export const handler = ({ value, plantName }: Payload): void => {
     .catch(e => {
       console.error('Network error', e)
     })
+
+  metrics.flush(() => {
+    console.log('Metrics flushed')
+  }, (e) => {
+    console.error('Failed to flush metrics', e)
+  })
 }
