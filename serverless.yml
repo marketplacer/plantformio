@@ -19,10 +19,10 @@ provider:
 
 package:
   include:
-    - lambda/dist/node_modules/**
     - lambda/dist/**/*.js
   exclude:
     - ./**/*
+    - '!./node_modules/**'
 
 functions:
   moistureReading:
