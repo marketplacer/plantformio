@@ -19,6 +19,8 @@ interface DbEntry {
   plant: string
   /** ISO8601 string */
   time: string
+  /** Whether an alert was sent */
+  alerted: boolean
 }
 
 interface DbResponse {
@@ -79,6 +81,26 @@ export const isAlertRequired = (
         return false
       }
 
+      /* Don't alert if we've alerted within the last 8 hours */
+      const previousAlertWindow = new Date(readingTime)
+      previousAlertWindow.setHours(previousAlertWindow.getHours() - 8)
+
+      const withinPreviousAlertWindow = (entry: DbEntry): boolean => {
+        const entryTime = new Date(entry.time)
+
+        return (
+          entryTime >= previousAlertWindow &&
+          entryTime <= readingTime &&
+          entry.alerted
+        )
+      }
+
+      if (entries.some(withinPreviousAlertWindow)) {
+        console.log('Recently alerted')
+
+        return false
+      }
+
       /* Don't alert if we haven't got readings going back to the threshold time */
 
       /** End time wherein we must find a reading in order for the dataset to be considered complete */
@@ -111,6 +133,8 @@ export const isAlertRequired = (
 
         return true
       }
+
+      return false
     })
     .catch(() => {
       /* If we don't get history, that shouldn't stop us saving data */
