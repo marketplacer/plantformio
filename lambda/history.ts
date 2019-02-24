@@ -33,7 +33,7 @@ interface DbResponse {
 /** Get plant configuration */
 const getConfig = (plant: string): Promise<Plant> =>
   new Promise((resolve, reject) => {
-    fs.readFile(`../plants/${plant}.json`, 'utf8', (e, data) => {
+    fs.readFile(`./lambda/plants/${plant}.json`, 'utf8', (e, data) => {
       if (e) {
         console.error('Failed to fetch plant config')
         return reject(e)
