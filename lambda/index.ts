@@ -21,12 +21,15 @@ interface Payload {
 /** Capitalize the first letter of a string */
 const capitalize = (s: string) => s[0].toUpperCase() + s.slice(1)
 
-export const handler = ({ value, plantName }: Payload): void => {
+export const handler = ({ value: rawValue, plantName }: Payload): void => {
+  /** Inverted reading, so that high moisture means high number */
+  const value = 1024 - rawValue
   metrics.gauge(`${plantName}.moisture`, value)
+
   console.log(`Received ${value} on ${plantName}`)
 
   const reading: Reading = {
-    value: value,
+    value,
     plant: plantName,
     time: new Date()
   }
