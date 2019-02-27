@@ -1,7 +1,7 @@
 {
   "name": "pubert",
   "threshold": {
-    "value": 750,
+    "value": -999,
     "hours": 24
   }
 }
