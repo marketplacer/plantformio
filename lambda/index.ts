@@ -18,9 +18,6 @@ interface Payload {
   plantName: string
 }
 
-/** Capitalize the first letter of a string */
-const capitalize = (s: string) => s[0].toUpperCase() + s.slice(1)
-
 export const handler = ({ value: rawValue, plantName }: Payload): void => {
   /** Inverted reading, so that high moisture means high number */
   const value = 1024 - rawValue
@@ -35,12 +32,12 @@ export const handler = ({ value: rawValue, plantName }: Payload): void => {
   }
 
   isAlertRequired(reading, dynamoDb)
-    .then(shouldAlert => {
-      if (!shouldAlert) return false
+    .then(name => {
+      if (!name) return false
 
       return axios
         .post(process.env.WEBHOOK_URL, {
-          text: `${capitalize(plantName)} needs watering!`
+          text: `${name} needs watering!`
         })
         .then(() => {
           console.log('Alerted')
