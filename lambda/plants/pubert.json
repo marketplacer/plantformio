@@ -1,7 +1,7 @@
 {
-  "name": "pubert",
+  "name": "Pubert",
   "threshold": {
-    "value": -999,
+    "value": 400,
     "hours": 24
   }
 }
