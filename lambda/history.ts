@@ -147,7 +147,7 @@ const meetsThreshold = (threshold: number, entries: DbEntry[]): boolean => {
 export const isAlertRequired = (
   { value, plant, time: readingTime }: Reading,
   db: DynamoDB.DocumentClient
-): Promise<boolean> =>
+): Promise<string | boolean> =>
   getConfig(plant)
     .then(plantConfig => {
       /* JS Date objects (╯°□°）╯︵ ┻━┻ */
@@ -159,15 +159,16 @@ export const isAlertRequired = (
       return getMoistureReadings(plant, thresholdTime, db).then(entries => ({
         plantConfig,
         thresholdTime,
-        entries
+        entries,
+        name: plantConfig.name // Presentational name from config
       }))
     })
-    .then(({ plantConfig, thresholdTime, entries }) => {
+    .then(({ plantConfig, thresholdTime, entries, name }) => {
       if (justWatered(value, plantConfig.threshold.value)) return false
       if (recentlyAlerted(readingTime, entries)) return false
       if (notEnoughReadings(thresholdTime, entries)) return false
 
-      return meetsThreshold(plantConfig.threshold.value, entries)
+      return meetsThreshold(plantConfig.threshold.value, entries) && name
     })
     .catch(e => {
       console.error(e)
