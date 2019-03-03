@@ -1,0 +1,7 @@
+{
+  "name": "ActsAsWaterable",
+  "threshold": {
+    "value": 340,
+    "hours": 24
+  }
+}
