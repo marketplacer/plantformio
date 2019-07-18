@@ -1,7 +1,7 @@
 {
   "name": "Pubert",
   "threshold": {
-    "value": 440,
+    "value": 400,
     "hours": 24
   }
 }
