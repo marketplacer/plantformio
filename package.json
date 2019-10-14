@@ -22,7 +22,7 @@
     "@types/axios": "^0.14.0",
     "@types/datadog-metrics": "^0.6.0",
     "@types/node": "^11.9.3",
-    "tslint": "^5.12.1",
+    "tslint": "^5.20.0",
     "tslint-config-standard": "^8.0.1",
     "typescript": "^3.3.3"
   }
