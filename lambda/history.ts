@@ -86,7 +86,7 @@ const justWatered = (value: number, thresholdValue: number): boolean => {
 /** Check if an alert was recently sent */
 const recentlyAlerted = (readingTime: Date, entries: DbEntry[]): boolean => {
   const previousAlertWindow = new Date(readingTime)
-  previousAlertWindow.setHours(previousAlertWindow.getHours() - 8)
+  previousAlertWindow.setHours(previousAlertWindow.getHours() - 24)
 
   const withinPreviousAlertWindow = (entry: DbEntry): boolean => {
     const entryTime = new Date(entry.time)
