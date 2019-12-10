@@ -1,7 +1,7 @@
 {
   "name": "Andy Kelp",
   "threshold": {
-    "value": 400,
+    "value": 300,
     "hours": 48
   }
 }
