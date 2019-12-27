@@ -39,7 +39,15 @@ const getConfig = (plant: string): Promise<Plant> =>
         return reject(e)
       }
 
-      resolve(JSON.parse(data))
+      const plantConfig: Plant = JSON.parse(data)
+
+      resolve({
+        ...plantConfig,
+        threshold: {
+          ...plantConfig.threshold,
+          hours: 336 // the office is closed, wait 2 weeks between alerts
+        }
+      })
     })
   })
 
@@ -86,7 +94,7 @@ const justWatered = (value: number, thresholdValue: number): boolean => {
 /** Check if an alert was recently sent */
 const recentlyAlerted = (readingTime: Date, entries: DbEntry[]): boolean => {
   const previousAlertWindow = new Date(readingTime)
-  previousAlertWindow.setHours(previousAlertWindow.getHours() - 336) // 2 weeks
+  previousAlertWindow.setHours(previousAlertWindow.getHours() - 24)
 
   const withinPreviousAlertWindow = (entry: DbEntry): boolean => {
     const entryTime = new Date(entry.time)
