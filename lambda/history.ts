@@ -41,13 +41,7 @@ const getConfig = (plant: string): Promise<Plant> =>
 
       const plantConfig: Plant = JSON.parse(data)
 
-      resolve({
-        ...plantConfig,
-        threshold: {
-          ...plantConfig.threshold,
-          hours: 336 // the office is closed, wait 2 weeks between alerts
-        }
-      })
+      resolve(JSON.parse(data))
     })
   })
 
