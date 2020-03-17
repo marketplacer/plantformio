@@ -32,28 +32,12 @@ export const handler = ({ value: rawValue, plantName }: Payload): void => {
   }
 
   isAlertRequired(reading, dynamoDb)
-    .then(name => {
-      if (!name) return false
-
-      return axios
-        .post(process.env.WEBHOOK_URL, {
-          text: `${name} needs watering!`
-        })
-        .then(() => {
-          console.log('Alerted')
-          return true
-        })
-        .catch(e => {
-          console.error('Failed to publish to Slack', e)
-          return false
-        })
-    })
-    .then(alerted => {
+    .then(() => {
       dynamoDb.put(
         {
           TableName: table,
           Item: {
-            alerted,
+            alerted: false,
             plant: plantName,
             time: new Date().toISOString(),
             value
