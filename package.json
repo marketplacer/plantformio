@@ -14,7 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "aws-sdk": "^2.408.0",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "datadog-metrics": "^0.8.1"
   },
   "devDependencies": {
